@@ -27,6 +27,13 @@ public class Chamado {
     @JoinColumn(name = "responsavel_id")
     private Usuario responsavel;
 
+    public Chamado(long l, Object descricao, Status status, Usuario clienteFalso, Object o) {
+    }
+
+    public Chamado() {
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -65,5 +72,8 @@ public class Chamado {
 
     public void setResponsavel(Usuario responsavel) {
         this.responsavel = responsavel;
+    }
+
+    public void setDescricao(Object descricao) {
     }
 }
