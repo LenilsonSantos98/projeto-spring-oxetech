@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
+
 @Entity
 public class Usuario {
     @Id
@@ -25,6 +23,7 @@ public class Usuario {
     private String senha;
 
     private Role role;
+
 
     public Usuario(Object clienteId, String nomeCliente, String mail, String senha, Object o) {
     }
@@ -50,14 +49,18 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
+        this.email =  email;
     }
 
     public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setSenha(String encode) {
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public void setRole(Role role) {
+        this.role = role;
     }
 }

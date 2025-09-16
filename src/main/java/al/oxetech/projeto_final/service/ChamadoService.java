@@ -12,6 +12,9 @@ import org.springframework.data.crossstore.ChangeSetBacked;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ChamadoService {
     private final ChamadoRepository chamadoRepository;
@@ -23,7 +26,7 @@ public class ChamadoService {
     }
 
     public ChamadoDTO salvar(ChamadoInputDTO dto){
-        Usuario cliente = usuarioRepository.findById((Long) dto.getClienteId())
+        Usuario cliente = usuarioRepository.findById(dto.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 
         Chamado novoChamado = new Chamado();
@@ -34,6 +37,13 @@ public class ChamadoService {
         return new ChamadoDTO(chamadoRepository.save(novoChamado));
 
 
+    }
+
+    public List<ChamadoDTO> listarTodos(){
+        return chamadoRepository.findAll()
+                .stream()
+                .map(ChamadoDTO::new)
+                .collect(Collectors.toList());
     }
 
 

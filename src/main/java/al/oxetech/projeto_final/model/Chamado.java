@@ -5,9 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ValueGenerationType;
 
-@Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 public class Chamado {
     @Id
@@ -75,5 +73,6 @@ public class Chamado {
     }
 
     public void setDescricao(Object descricao) {
+        this.descricao = descricao.toString();
     }
 }

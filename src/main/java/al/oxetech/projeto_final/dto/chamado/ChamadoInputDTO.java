@@ -8,18 +8,26 @@ public class ChamadoInputDTO {
 @NotBlank
     private String descricao;
 
-@NotNull
+    @NotNull
     private Long clienteId;
 
-    public Object getClienteId() {
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Long getClienteId() {
         return clienteId;
     }
 
-    public void setClienteId(Object clienteId) {
-        this.clienteId = (Long) clienteId;
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 
-    public Object getDescricao() {
-        return null;
-    }
+
+
 }
