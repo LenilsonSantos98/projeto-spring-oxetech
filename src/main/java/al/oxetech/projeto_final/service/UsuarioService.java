@@ -44,4 +44,11 @@ public class UsuarioService {
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
         return new UsuarioDTO(u);
     }
+
+    public UsuarioDTO atualizarRole (Long id, Role novaRole){
+        Usuario u = usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+        u.setRole(novaRole);
+        return new UsuarioDTO(usuarioRepository.save(u));
+    }
 }

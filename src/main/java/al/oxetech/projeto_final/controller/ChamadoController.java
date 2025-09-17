@@ -33,4 +33,23 @@ public class ChamadoController {
     public List<ChamadoDTO> listarTodos(){
         return chamadoService.listarTodos();
     }
+
+    @PatchMapping("{chamadoId}/atribuir/{suporteId}")
+    public ResponseEntity<ChamadoDTO> atribuirChamado(@PathVariable Long chamadoId, @PathVariable Long suporteId){
+        ChamadoDTO chamadoAtualizado = chamadoService.atribuirChamado(chamadoId, suporteId);
+        return ResponseEntity.ok(chamadoAtualizado);
+    }
+
+    @PatchMapping("/{chamadoId}/finalizar")
+    public ResponseEntity<ChamadoDTO> finalizarChamdo(@PathVariable Long chamadoId){
+        ChamadoDTO chamadoFinalizado = chamadoService.finalizarChamado(chamadoId);
+        return  ResponseEntity.ok(chamadoFinalizado);
+    }
+
+    @PatchMapping("/{chamadoId}/reabrir")
+    public ResponseEntity<ChamadoDTO> reabrirChamado(@PathVariable Long chamadoId){
+        ChamadoDTO chamadoReaberto = chamadoService.reabrirChamado(chamadoId);
+        return ResponseEntity.ok(chamadoReaberto);
+    }
+
 }

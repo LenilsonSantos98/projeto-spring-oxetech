@@ -46,5 +46,38 @@ public class ChamadoService {
                 .collect(Collectors.toList());
     }
 
+    //Lógica para atribuir um chamado
+    public ChamadoDTO atribuirChamado (Long chamadoId, Long suporteId){
+
+        Chamado chamado = chamadoRepository.findById(chamadoId)
+                .orElseThrow(() -> new EntityNotFoundException("Chamado não encontrado"));
+
+        Usuario suporte = usuarioRepository.findById(suporteId)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario de suporte não encontrado"));
+
+        //atribui o responsável e atualiza o status
+        chamado.setResponsavel(suporte);
+        chamado.setStatus(Status.EM_ATENDIMENTO);
+
+        return new ChamadoDTO(chamadoRepository.save(chamado));
+    }
+
+    public ChamadoDTO finalizarChamado (Long chamadoId){
+        Chamado chamado = chamadoRepository.findById(chamadoId)
+                .orElseThrow(() -> new EntityNotFoundException("Chamado não encontrado"));
+        chamado.setStatus(Status.CONCLUIDO);
+
+        return  new ChamadoDTO(chamadoRepository.save(chamado));
+    }
+
+    public  ChamadoDTO reabrirChamado(Long chamadoId){
+        Chamado chamado = chamadoRepository.findById(chamadoId)
+                .orElseThrow(() -> new EntityNotFoundException("Chamado não encontrado"));
+        chamado.setStatus(Status.EM_ATENDIMENTO);
+
+        return  new ChamadoDTO(chamadoRepository.save(chamado));
+    }
+
+
 
 }
