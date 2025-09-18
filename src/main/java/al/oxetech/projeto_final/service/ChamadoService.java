@@ -3,6 +3,7 @@ package al.oxetech.projeto_final.service;
 import al.oxetech.projeto_final.dto.chamado.ChamadoDTO;
 import al.oxetech.projeto_final.dto.chamado.ChamadoInputDTO;
 import al.oxetech.projeto_final.model.Chamado;
+import al.oxetech.projeto_final.model.Role;
 import al.oxetech.projeto_final.model.Status;
 import al.oxetech.projeto_final.model.Usuario;
 import al.oxetech.projeto_final.repository.ChamadoRepository;
@@ -29,6 +30,10 @@ public class ChamadoService {
         Usuario cliente = usuarioRepository.findById(dto.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 
+        if (cliente.getRole() != Role.CLIENTE){
+            throw new IllegalArgumentException("Apenas clientes podem abrir chamados.");
+        }
+
         Chamado novoChamado = new Chamado();
         novoChamado.setDescricao(dto.getDescricao());
         novoChamado.setCliente(cliente);
@@ -41,6 +46,13 @@ public class ChamadoService {
 
     public List<ChamadoDTO> listarTodos(){
         return chamadoRepository.findAll()
+                .stream()
+                .map(ChamadoDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<ChamadoDTO> listarPorCliente(Long clienteId){
+        return chamadoRepository.findByClienteId(clienteId)
                 .stream()
                 .map(ChamadoDTO::new)
                 .collect(Collectors.toList());
