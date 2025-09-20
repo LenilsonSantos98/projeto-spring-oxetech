@@ -38,9 +38,9 @@ public class ChamadoController {
         String token = authHeader.replace("Bearer ","");
         Claims claims = jwtService.validarToken(token);
         Long id = Long.parseLong(claims.getSubject());
-        dto.setClienteId(id);
 
-        ChamadoDTO novoChamado = chamadoService.salvar(dto);
+
+        ChamadoDTO novoChamado = chamadoService.salvar(dto, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoChamado);
     }
     @GetMapping

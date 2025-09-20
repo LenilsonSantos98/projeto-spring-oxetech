@@ -26,8 +26,8 @@ public class ChamadoService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public ChamadoDTO salvar(ChamadoInputDTO dto){
-        Usuario cliente = usuarioRepository.findById(dto.getClienteId())
+    public ChamadoDTO salvar(ChamadoInputDTO dto, Long id){
+        Usuario cliente = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 
         if (cliente.getRole() != Role.CLIENTE){
